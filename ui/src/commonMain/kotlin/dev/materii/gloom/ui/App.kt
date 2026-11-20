@@ -8,6 +8,8 @@ import cafe.adriel.voyager.core.annotation.InternalVoyagerApi
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.NavigatorDisposeBehavior
+import coil3.ImageLoader
+import coil3.compose.setSingletonImageLoaderFactory
 import dev.materii.gloom.domain.manager.PreferenceManager
 import dev.materii.gloom.domain.manager.enums.Theme
 import dev.materii.gloom.ui.theme.GloomTheme
@@ -38,6 +40,12 @@ fun App(
     onAttach: (Navigator, AlertController) -> Unit = { _, _ -> },
 ) {
     val prefs: PreferenceManager = koinInject()
+
+    // Coil 3.1: register a singleton ImageLoader factory. The network fetcher
+    // (coil-network-ktor3) is picked up automatically via ServiceLoader.
+    setSingletonImageLoaderFactory { context ->
+        ImageLoader.Builder(context).build()
+    }
 
     val isDark = when (prefs.theme) {
         Theme.SYSTEM -> isSystemInDarkTheme()

@@ -34,6 +34,30 @@ class HomeViewModel(
         return data?.viewer?.dashboard?.feed?.items?.nodes?.filterNotNull() ?: emptyList()
     }
 
+    /**
+     * Strong identity for event types that carry actor+timestamp+target, so
+     * entries repeated across cursor pages are dropped. Types without those
+     * fields return null and are never de-duplicated.
+     */
+    override fun itemFingerprint(item: FeedQuery.Node): String? {
+        item.createdRepoItemFragment?.let {
+            return "created|${it.actor.actorFragment.login}|${it.createdAt}|${it.repository.feedRepository.id}"
+        }
+        item.newReleaseItemFragment?.let {
+            return "release|${it.actor.actorFragment.login}|${it.createdAt}|${it.release.tagName}"
+        }
+        item.forkedRepositoryFeedItemFragment?.let {
+            return "forked|${it.actor.actorFragment.login}|${it.createdAt}|${it.repository.feedRepository.id}"
+        }
+        item.starredFeedItemFragment?.let {
+            return "starred|${it.actor.actorFragment.login}|${it.createdAt}|${it.repository.feedRepository.id}"
+        }
+        item.mergedPullRequestFeedItemFragment?.let {
+            return "merged|${it.actor.actorFragment.login}|${it.createdAt}|${it.pullRequest.id}"
+        }
+        return null
+    }
+
     fun starRepo(id: String) = screenModelScope.launch {
         repo.starRepo(id).ifSuccessful {
             starredRepos[id] = it

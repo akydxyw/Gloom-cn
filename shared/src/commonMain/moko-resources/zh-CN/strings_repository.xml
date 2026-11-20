@@ -1,56 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
     <string name="action_star">Star</string>
-    <string name="action_unstar">Unstar</string>
-    <string name="placeholder_empty_repo">Empty Repository</string>
-    <string name="cd_forked_repo">Forked Repository</string>
-    <string name="label_repo_archived">Archived by owner</string>
+    <string name="action_unstar">取消 Star</string>
+    <string name="placeholder_empty_repo">空仓库</string>
+    <string name="cd_forked_repo">Fork 的仓库</string>
+    <string name="label_repo_archived">已被所有者归档</string>
     <!-- Details -->
-    <string name="repo_tab_details">Details</string>
-    <string name="action_show_license_details">Show license details</string>
-    <string name="action_hide_license_details">Hide license details</string>
-    <string name="title_license">License</string>
-    <string name="label_permissions">Permissions</string>
-    <string name="label_limitations">Limitations</string>
-    <string name="label_conditions">Conditions</string>
-    <string name="label_forked_from">Forked from %s</string>
+    <string name="repo_tab_details">详情</string>
+    <string name="action_show_license_details">查看许可证详情</string>
+    <string name="action_hide_license_details">隐藏许可证详情</string>
+    <string name="title_license">许可证</string>
+    <string name="label_permissions">允许</string>
+    <string name="label_limitations">限制</string>
+    <string name="label_conditions">条件</string>
+    <string name="label_forked_from">Fork 自 %s</string>
     <!--         -->
     <!-- Code -->
-    <string name="repo_tab_code">Code</string>
-    <string name="commits">Commits</string>
+    <string name="repo_tab_code">代码</string>
+    <string name="commits">提交</string>
     <!--      -->
     <!-- Commits -->
-    <string name="label_verified">Verified</string>
-    <string name="label_verified_on">Verified on %1$s</string>
-    <string name="label_gpg_key_id">GPG Key ID: %1$s</string>
-    <string name="label_ssh_fingerprint">SSH Fingerprint: %1$s</string>
-    <string name="commit_authored_by_committer">§author§%1$s§ authored</string>
-    <string name="commit_authored_by_different">§author§%1$s§ authored and §committer§%2$s§ committed</string>
-    <string name="title_commit_verified">This Commit is Verified</string>
-    <string name="commit_signature_reason_github">This commit was created on GitHub.com and signed with GitHub\'s verified signature.
+    <string name="label_verified">已验证</string>
+    <string name="label_verified_on">验证于 %1$s</string>
+    <string name="label_gpg_key_id">GPG 密钥 ID：%1$s</string>
+    <string name="label_ssh_fingerprint">SSH 指纹：%1$s</string>
+    <string name="commit_authored_by_committer">§author§%1$s§ §text§编写了此提交§</string>
+    <string name="commit_authored_by_different">§author§%1$s§ §text§编写，§ §committer§%2$s§ §text§提交§</string>
+    <string name="title_commit_verified">此提交已通过验证</string>
+    <string name="commit_signature_reason_github">此提交创建于 GitHub.com，并带有 GitHub 已验证的签名。
     </string>
-    <string name="commit_signature_reason_user">This commit was signed with the committer\'s verified signature.</string>
+    <string name="commit_signature_reason_user">此提交带有提交者已验证的签名。</string>
     <!--         -->
     <!-- Issues -->
-    <string name="repo_tab_issues">Issues</string>
-    <string name="cd_issue_title_opened">Issue number %1$d with title \"%2$s\"</string>
-    <string name="cd_issue_title_completed">Issue number %1$d with title \"%2$s\" marked as completed</string>
-    <string name="cd_issue_title_not_planned">Issue number %1$d with title \"%2$s\" marked as not planned</string>
+    <string name="repo_tab_issues">Issue</string>
+    <string name="cd_issue_title_opened">编号 %1$d 的 Issue，标题为 \"%2$s\"</string>
+    <string name="cd_issue_title_completed">编号 %1$d 的 Issue \"%2$s\" 已被标记为完成</string>
+    <string name="cd_issue_title_not_planned">编号 %1$d 的 Issue \"%2$s\" 已被标记为暂不处理</string>
     <!--        -->
     <!-- Pull Requests -->
-    <string name="repo_tab_prs">Pull Requests</string>
-    <string name="cd_pr_title_opened">Opened pull request number %1$d with title \"%2$s\"</string>
-    <string name="cd_pr_title_merged">Merged pull request number %1$d with title \"%2$s\"</string>
-    <string name="cd_pr_title_closed">Closed pull request number %1$d with title \"%2$s\"</string>
-    <string name="cd_pr_title_draft">Draft pull request number %1$d with title \"%2$s\"</string>
-    <string name="label_checks_failed">Checks failed</string>
+    <string name="repo_tab_prs">Pull Request</string>
+    <string name="cd_pr_title_opened">打开了编号 %1$d 的 Pull Request，标题为 \"%2$s\"</string>
+    <string name="cd_pr_title_merged">合并了编号 %1$d 的 Pull Request，标题为 \"%2$s\"</string>
+    <string name="cd_pr_title_closed">关闭了编号 %1$d 的 Pull Request，标题为 \"%2$s\"</string>
+    <string name="cd_pr_title_draft">起草了编号 %1$d 的 Pull Request，标题为 \"%2$s\"</string>
+    <string name="label_checks_failed">检查未通过</string>
     <!--               -->
     <!-- Issue or PR -->
-    <string name="cd_label_comments">%1$d comments</string>
-    <string name="msg_issue_or_pr_author">#%1$d by %2$s</string>
+    <string name="cd_label_comments">%1$d 条评论</string>
+    <string name="msg_issue_or_pr_author">#%1$d · 作者 %2$s</string>
     <!--             -->
     <!-- Releases -->
-    <string name="repo_tab_releases">Releases</string>
-    <string name="label_all_releases">All releases</string>
+    <string name="repo_tab_releases">发行版</string>
+    <string name="label_all_releases">全部发行版</string>
     <!--          -->
 </resources>

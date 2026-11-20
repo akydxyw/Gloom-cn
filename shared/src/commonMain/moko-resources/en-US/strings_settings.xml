@@ -82,4 +82,135 @@
     <string name="label_open_source">Open Source</string>
     <string name="label_closed_source">Closed Source</string>
     <!--       -->
+    <!-- Translation -->
+    <string name="settings_translation">Translation</string>
+    <string name="settings_translation_description">Translate repos, READMEs, issues and PRs</string>
+
+    <string name="translation_service">Translation Service</string>
+    <string name="translation_target_language">Target Language</string>
+
+    <string name="translation_engine_google">Google (free)</string>
+    <string name="translation_engine_microsoft">Microsoft (free)</string>
+    <string name="translation_engine_mymemory">MyMemory (free)</string>
+    <string name="translation_engine_deeplx">DeepLX</string>
+    <string name="translation_engine_openai">Custom AI (OpenAI compatible)</string>
+
+    <string name="translation_target_zh_cn">Simplified Chinese</string>
+    <string name="translation_target_zh_tw">Traditional Chinese</string>
+    <string name="translation_target_en">English</string>
+    <string name="translation_target_ja">Japanese</string>
+
+    <string name="translation_deeplx_header">DeepLX</string>
+    <string name="translation_deeplx_endpoint">Endpoint</string>
+    <string name="translation_deeplx_endpoint_hint">Leave empty to use the public endpoint</string>
+    <string name="translation_deeplx_token">Access token (optional)</string>
+
+    <string name="translation_openai_header">Custom AI Service</string>
+    <string name="translation_openai_endpoint">API Base URL</string>
+    <string name="translation_openai_endpoint_hint">e.g. https://api.openai.com/v1</string>
+    <string name="translation_openai_key">API Key</string>
+    <string name="translation_openai_model">Model Name</string>
+
+    <string name="translation_mymemory_header">MyMemory</string>
+    <string name="translation_mymemory_email">Email (optional, raises quota)</string>
+
+    <string name="translation_scope_header">Translate</string>
+    <string name="translation_scope_repo_name">Repository names</string>
+    <string name="translation_scope_repo_description">Repository descriptions</string>
+    <string name="translation_scope_readme">README</string>
+    <string name="translation_scope_issue_title">Issue titles</string>
+    <string name="translation_scope_pr_title">Pull request titles</string>
+
+    <string name="translation_note">Free services need no configuration. The text you translate is sent to the selected service.</string>
+
+    <string name="action_translate">Translate</string>
+    <string name="translation_readme_title">Translated README</string>
+    <string name="translation_progress">Translating %1$d/%2$d</string>
+    <string name="translation_truncated">README is very long; only the first %1$d paragraphs are translated.</string>
+    <string name="translation_error">Translation failed: %1$s</string>
+    <string name="translation_error_not_configured">This service is not configured yet. Set it up in settings.</string>
+    <string name="cd_translate">Translate</string>
+    <!--          -->
+    <!-- Translation -->
+    <string name="settings_translation">Translation</string>
+    <string name="settings_translation_description">Translate repos, READMEs, issues and PRs</string>
+
+    <string name="translation_service">Translation Service</string>
+    <string name="translation_target_language">Target Language</string>
+
+    <string name="translation_engine_google">Google (free)</string>
+    <string name="translation_engine_microsoft">Microsoft (free)</string>
+    <string name="translation_engine_mymemory">MyMemory (free)</string>
+    <string name="translation_engine_deeplx">DeepLX</string>
+    <string name="translation_engine_openai">Custom AI (OpenAI compatible)</string>
+
+    <string name="translation_target_zh_cn">Simplified Chinese</string>
+    <string name="translation_target_zh_tw">Traditional Chinese</string>
+    <string name="translation_target_en">English</string>
+    <string name="translation_target_ja">Japanese</string>
+
+    <string name="translation_deeplx_header">DeepLX</string>
+    <string name="translation_deeplx_endpoint">Endpoint</string>
+    <string name="translation_deeplx_endpoint_hint">Leave empty to use the public endpoint</string>
+    <string name="translation_deeplx_token">Access token (optional)</string>
+
+    <string name="translation_openai_header">Custom AI Service</string>
+    <string name="translation_openai_endpoint">API Base URL</string>
+    <string name="translation_openai_endpoint_hint">e.g. https://api.openai.com/v1</string>
+    <string name="translation_openai_key">API Key</string>
+    <string name="translation_openai_model">Model Name</string>
+
+    <string name="translation_mymemory_header">MyMemory</string>
+    <string name="translation_mymemory_email">Email (optional, raises quota)</string>
+
+    <string name="translation_scope_header">Translate</string>
+    <string name="translation_scope_repo_name">Repository names</string>
+    <string name="translation_scope_repo_description">Repository descriptions</string>
+    <string name="translation_scope_readme">README</string>
+    <string name="translation_scope_issue_title">Issue titles</string>
+    <string name="translation_scope_pr_title">Pull request titles</string>
+
+    <string name="translation_note">Free services need no configuration. The text you translate is sent to the selected service.</string>
+
+    <string name="action_translate">Translate</string>
+    <string name="translation_readme_title">Translated README</string>
+    <string name="translation_progress">Translating %1$d/%2$d</string>
+    <string name="translation_truncated">README is very long; only the first %1$d paragraphs are translated.</string>
+    <string name="translation_error">Translation failed: %1$s</string>
+    <string name="translation_error_not_configured">This service is not configured yet. Set it up in settings.</string>
+    <string name="cd_translate">Translate</string>
+    <!--          -->
+    <!-- Translation pool & auto translate -->
+    <string name="translation_auto">Auto Translate</string>
+    <string name="translation_auto_description">Translate automatically as you browse, no manual steps</string>
+
+    <string name="translation_pool">Free Translation Pool</string>
+    <string name="translation_pool_mode">Pool Mode</string>
+    <string name="translation_pool_balanced">Balanced (weighted)</string>
+    <string name="translation_pool_sequential">Sequential (fallback order)</string>
+    <string name="translation_pool_services">Pool Services</string>
+
+    <string name="service_microsoft">Microsoft Translate</string>
+    <string name="service_google">Google Translate</string>
+    <string name="service_transmart">Tencent Transmart</string>
+    <string name="service_volcengine">Volcengine Translate</string>
+    <string name="service_youdao">Youdao Translate</string>
+    <string name="service_iciba">Kingsoft iCIBA</string>
+    <string name="service_alibaba">Alibaba Translate</string>
+    <string name="service_bilibili">Bilibili Translate</string>
+    <string name="service_modernmt">ModernMT</string>
+    <string name="service_lingvanex">Lingvanex</string>
+    <string name="service_yandex">Yandex Translate</string>
+    <string name="service_mymemory">MyMemory</string>
+    <string name="service_reverso">Reverso</string>
+    <string name="service_apertium">Apertium</string>
+
+    <string name="translation_scope_commits">Commit messages</string>
+    <string name="translation_check">Check connection</string>
+    <string name="translation_checking">Checking…</string>
+    <string name="translation_check_ok">Available</string>
+    <string name="translation_check_fail">Unavailable</string>
+    <string name="translation_check_hint">Tap a service (or its icon) to send a short test request. Results reflect this moment only.</string>
+
+        <string name="translation_scope_releases">Release notes</string>
 </resources>

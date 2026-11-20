@@ -51,8 +51,8 @@ kotlin {
                 implementation(libs.highlights)
                 implementation(libs.koin.core)
                 implementation(libs.koin.compose)
-                implementation(libs.ktor.client.core)
-                implementation(libs.multiplatform.paging)
+implementation(libs.ktor.client.core)
+implementation(libs.multiplatform.paging)
                 implementation(libs.multiplatform.paging.compose)
                 implementation(libs.zoomable)
 
@@ -64,7 +64,7 @@ kotlin {
         androidMain {
             dependencies {
                 implementation(libs.androidx.core.ktx)
-                implementation(libs.coil.gif)
+implementation(libs.coil.gif)
                 implementation(libs.koin.android)
             }
         }

@@ -14,7 +14,6 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemContentType
-import androidx.paging.compose.itemKey
 import cafe.adriel.voyager.core.screen.Screen
 import com.apollographql.apollo.api.Query
 import dev.icerock.moko.resources.StringResource
@@ -59,7 +58,12 @@ abstract class BaseListScreen<I: Any, D: Query.Data?, VM: BaseListViewModel<I, D
                 ) {
                     items(
                         count = items.itemCount,
-                        key = items.itemKey(),
+                        key = { index ->
+                            // data-class items are not guaranteed unique across pages;
+                            // index-prefixed keys keep LazyColumn keys unique
+                            val item = items[index]
+                            if (item == null) "placeholder:$index" else "$index:${item.hashCode()}"
+                        },
                         contentType = items.itemContentType(
                         )
                     ) { index ->

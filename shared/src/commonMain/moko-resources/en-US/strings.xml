@@ -89,4 +89,33 @@
     <string name="install_success">App installed successfully!</string>
     <string name="install_cancelled">Installation cancelled</string>
     <!--            -->
+    <!-- Starred -->
+    <string name="hint_search_starred">Search starred repositories</string>
+    <string name="label_all">All</string>
+    <string name="label_uncategorized">Uncategorized</string>
+    <string name="label_sort">Sort</string>
+    <string name="sort_recently_starred">Recently starred</string>
+    <string name="sort_oldest_starred">Oldest starred</string>
+    <string name="sort_most_stars">Most stars</string>
+    <string name="sort_name_az">Name (A-Z)</string>
+    <string name="msg_no_results">No matching repositories</string>
+    <!--            -->
+
+    <!-- GitHub Search -->
+    <string name="hint_search_github">Search GitHub</string>
+    <string name="label_search_repositories">Repositories</string>
+    <string name="label_search_users">Users</string>
+    <string name="label_search_issues">Issues</string>
+    <string name="label_search_discussions">Discussions</string>
+    <string name="search_sort_best_match">Best match</string>
+    <string name="search_sort_most_stars">Most stars</string>
+    <string name="search_sort_most_forks">Most forks</string>
+    <string name="search_sort_recently_updated">Recently updated</string>
+    <string name="search_sort_most_followers">Most followers</string>
+    <string name="search_sort_most_commented">Most commented</string>
+    <string name="search_sort_newest">Newest</string>
+    <string name="msg_search_result_count">%1$d results</string>
+    <string name="msg_search_no_results">No results found</string>
+    <string name="msg_search_failed">Search failed</string>
+    <!--   -->
 </resources>

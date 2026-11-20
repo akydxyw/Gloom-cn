@@ -271,3 +271,19 @@ pre,
 .markdown-alert-caution .markdown-alert-title {
     color: var(--alertCaution);
 }
+
+/* Inserted paragraph translations (FluentRead-style bilingual rendering) */
+.gloom-tr {
+    margin: 0 0 1em 0;
+    padding-left: 0.9em;
+    border-left: 3px solid var(--primary);
+    opacity: 0.72;
+    font-size: 0.95em;
+}
+
+/* Table row translations live inside the table as extra rows */
+tr.gloom-tr > td {
+    opacity: 0.72;
+    font-size: 0.95em;
+    border-top: none;
+}

@@ -19,21 +19,32 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import dev.icerock.moko.resources.compose.stringResource
 import dev.materii.gloom.Res
+import dev.materii.gloom.domain.manager.PreferenceManager
 import dev.materii.gloom.gql.fragment.CommitDetails
 import dev.materii.gloom.ui.component.AvatarPile
 import dev.materii.gloom.ui.component.Label
 import dev.materii.gloom.ui.component.StatusIcon
+import dev.materii.gloom.ui.component.translation.rememberTranslation
 import dev.materii.gloom.ui.screen.repo.dialog.CommitSignatureDialog
 import dev.materii.gloom.ui.theme.gloomColorScheme
 import dev.materii.gloom.ui.util.annotatingStringResource
 import dev.materii.gloom.util.TimeUtils
 import kotlinx.collections.immutable.persistentListOf
+import org.koin.compose.koinInject
 
 @Composable
 fun CommitItem(
     commit: CommitDetails,
     modifier: Modifier = Modifier
 ) {
+    val prefs: PreferenceManager = koinInject()
+    val translateHeadline = prefs.autoTranslate && prefs.translateCommits
+    val translatedHeadline = if (translateHeadline) {
+        rememberTranslation(commit.messageHeadline, enabled = true)
+    } else {
+        null
+    }
+
     Column(
         verticalArrangement = Arrangement.spacedBy(10.dp),
         modifier = modifier
@@ -45,16 +56,27 @@ fun CommitItem(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.fillMaxWidth()
         ) {
-            // Headline
-            Text(
-                text = commit.messageHeadline,
-                style = MaterialTheme.typography.bodyMedium,
-                fontSize = 15.sp,
-                fontWeight = FontWeight.Bold,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-                modifier = Modifier.weight(1f)
-            )
+            // Headline (+ translation underneath, FluentRead-style)
+            Column(modifier = Modifier.weight(1f)) {
+                Text(
+                    text = commit.messageHeadline,
+                    style = MaterialTheme.typography.bodyMedium,
+                    fontSize = 15.sp,
+                    fontWeight = FontWeight.Bold,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+
+                if (translatedHeadline != null && translatedHeadline != commit.messageHeadline) {
+                    Text(
+                        text = translatedHeadline,
+                        style = MaterialTheme.typography.bodySmall,
+                        color = LocalContentColor.current.copy(alpha = 0.65f),
+                        maxLines = 2,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                }
+            }
 
             // Status / Timestamp
             Row(

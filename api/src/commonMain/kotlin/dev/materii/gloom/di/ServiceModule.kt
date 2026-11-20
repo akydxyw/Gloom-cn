@@ -9,6 +9,7 @@ import dev.materii.gloom.api.service.GithubApiService
 import dev.materii.gloom.api.service.GithubAuthApiService
 import dev.materii.gloom.api.service.GraphQLService
 import dev.materii.gloom.api.service.HttpService
+import dev.materii.gloom.api.translation.TranslationManager
 import dev.materii.gloom.domain.manager.AuthManager
 import dev.materii.gloom.util.Logger
 import io.ktor.client.HttpClient
@@ -55,5 +56,9 @@ fun serviceModule() = module {
 
     singleOf(::provideApolloClient)
     singleOf(::GraphQLService)
+
+    single {
+        TranslationManager(get(), get(named("Rest")), get())
+    }
 
 }

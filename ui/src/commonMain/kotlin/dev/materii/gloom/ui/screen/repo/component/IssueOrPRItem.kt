@@ -7,9 +7,16 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Cancel
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Circle
+import androidx.compose.material.icons.outlined.ErrorOutline
 import androidx.compose.material.icons.outlined.ModeComment
+import androidx.compose.material.icons.outlined.Translate
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -25,6 +32,9 @@ import coil3.compose.AsyncImage
 import dev.icerock.moko.resources.StringResource
 import dev.icerock.moko.resources.compose.stringResource
 import dev.materii.gloom.Res
+import dev.materii.gloom.api.translation.TranslationManager
+import dev.materii.gloom.domain.manager.PreferenceManager
+import dev.materii.gloom.ui.component.translation.rememberTranslation
 import dev.materii.gloom.gql.type.PullRequestReviewDecision
 import dev.materii.gloom.gql.type.StatusState
 import dev.materii.gloom.ui.component.Label
@@ -32,7 +42,9 @@ import dev.materii.gloom.ui.theme.gloomColorScheme
 import dev.materii.gloom.ui.util.parsedColor
 import dev.materii.gloom.util.TimeUtils.getTimeSince
 import kotlinx.collections.immutable.ImmutableList
+import kotlinx.coroutines.launch
 import kotlinx.datetime.Instant
+import org.koin.compose.koinInject
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -50,9 +62,30 @@ fun IssueOrPRItem(
     totalComments: Int,
     modifier: Modifier = Modifier,
     checksStatus: StatusState? = null,
-    reviewDecision: PullRequestReviewDecision? = null
+    reviewDecision: PullRequestReviewDecision? = null,
+    translateEnabled: Boolean = false
 ) {
     val rowCD = stringResource(titleCDRes)
+    val translationManager: TranslationManager = koinInject()
+    val prefs: PreferenceManager = koinInject()
+    val translationScope = rememberCoroutineScope()
+    var translatedTitle by remember(title) { mutableStateOf<String?>(null) }
+    var titleLoading by remember(title) { mutableStateOf(false) }
+    var titleFailed by remember(title) { mutableStateOf(false) }
+
+    fun translateTitle() {
+        if (titleLoading) return
+        translationScope.launch {
+            titleLoading = true
+            titleFailed = false
+            try {
+                translatedTitle = translationManager.translate(title)
+            } catch (e: Exception) {
+                titleFailed = true
+            }
+            titleLoading = false
+        }
+    }
 
     Row(
         horizontalArrangement = Arrangement.spacedBy(16.dp),
@@ -78,12 +111,64 @@ fun IssueOrPRItem(
             modifier = Modifier.weight(1f)
         ) {
 
-            Text(
-                text = title,
-                style = MaterialTheme.typography.bodyMedium,
-                fontSize = 15.sp,
-                fontWeight = FontWeight.Bold
-            )
+            if (translateEnabled && prefs.autoTranslate) {
+                val autoTranslated = rememberTranslation(title, enabled = true)
+                Column {
+                    Text(
+                        text = title,
+                        style = MaterialTheme.typography.bodyMedium,
+                        fontSize = 15.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+                    if (autoTranslated != null && autoTranslated != title) {
+                        Text(
+                            text = autoTranslated,
+                            style = MaterialTheme.typography.bodySmall,
+                            color = LocalContentColor.current.copy(alpha = 0.7f)
+                        )
+                    }
+                }
+            } else {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Text(
+                        text = title,
+                        style = MaterialTheme.typography.bodyMedium,
+                        fontSize = 15.sp,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier.weight(1f)
+                    )
+
+                    if (translateEnabled) {
+                        if (titleLoading) {
+                            CircularProgressIndicator(
+                                modifier = Modifier.size(16.dp),
+                                strokeWidth = 2.dp
+                            )
+                        } else {
+                            IconButton(
+                                onClick = { translateTitle() },
+                                modifier = Modifier.size(26.dp)
+                            ) {
+                                Icon(
+                                    imageVector = if (titleFailed) Icons.Outlined.ErrorOutline else Icons.Outlined.Translate,
+                                    contentDescription = stringResource(Res.strings.cd_translate),
+                                    tint = if (titleFailed) MaterialTheme.colorScheme.error
+                                    else LocalContentColor.current.copy(alpha = 0.4f),
+                                    modifier = Modifier.size(16.dp)
+                                )
+                            }
+                        }
+                    }
+                }
+
+                translatedTitle?.let {
+                    Text(
+                        text = it,
+                        style = MaterialTheme.typography.bodySmall,
+                        color = LocalContentColor.current.copy(alpha = 0.7f)
+                    )
+                }
+            }
 
             Text(
                 text = stringResource(

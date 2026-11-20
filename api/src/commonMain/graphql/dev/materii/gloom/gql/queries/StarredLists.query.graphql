@@ -1,0 +1,26 @@
+query StarredLists($login: String!, $cursor: String) {
+    user(login: $login) {
+        lists(first: 50, after: $cursor) {
+            pageInfo {
+                endCursor
+                hasNextPage
+            }
+            totalCount
+            nodes {
+                id
+                name
+                slug
+                description
+                isPrivate
+                items(first: 100) {
+                    totalCount
+                    nodes {
+                        ... on Repository {
+                            ...RepoListRepoFragment
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -22,8 +22,8 @@ android {
         applicationId = "dev.materii.gloom"
         minSdk = 21
         targetSdk = 35
-        versionCode = 100
-        versionName = "0.1.0"
+        versionCode = 102
+        versionName = "0.3.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -42,8 +42,8 @@ android {
             val hasReleaseSigning = System.getenv("SIGNING_STORE_PASSWORD")?.isNotEmpty() == true
 
             // versionNameSuffix = "-alpha" // TODO: Use build flavor
-            isMinifyEnabled = true
-            isShrinkResources = true
+            isMinifyEnabled = false
+            isShrinkResources = false
             isCrunchPngs = true
             signingConfig = signingConfigs.getByName(if (hasReleaseSigning) "release" else "debug")
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "../proguard-rules.pro")

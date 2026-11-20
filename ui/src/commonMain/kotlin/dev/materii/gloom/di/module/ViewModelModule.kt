@@ -14,6 +14,7 @@ import dev.materii.gloom.ui.screen.settings.viewmodel.AccountSettingsViewModel
 import dev.materii.gloom.ui.screen.settings.viewmodel.AppIconSettingsViewModel
 import dev.materii.gloom.ui.screen.settings.viewmodel.AppearanceSettingsViewModel
 import dev.materii.gloom.ui.screen.settings.viewmodel.SettingsViewModel
+import dev.materii.gloom.ui.screen.settings.viewmodel.TranslationSettingsViewModel
 import org.koin.core.module.dsl.factoryOf
 import org.koin.dsl.module
 
@@ -30,6 +31,7 @@ fun viewModelModule() = module {
     factoryOf(::SponsoringViewModel)
     factoryOf(::SettingsViewModel)
     factoryOf(::AppearanceSettingsViewModel)
+    factoryOf(::TranslationSettingsViewModel)
     factoryOf(::AccountSettingsViewModel)
     factoryOf(::AppIconSettingsViewModel)
     factoryOf(::HomeViewModel)

@@ -27,8 +27,10 @@ import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import dev.icerock.moko.resources.compose.stringResource
 import dev.materii.gloom.Res
+import dev.materii.gloom.domain.manager.PreferenceManager
 import dev.materii.gloom.gql.fragment.NewReleaseItemFragment
 import dev.materii.gloom.ui.component.ThinDivider
+import dev.materii.gloom.ui.component.translation.rememberTranslation
 import dev.materii.gloom.ui.icon.Custom
 import dev.materii.gloom.ui.icon.custom.Commit
 import dev.materii.gloom.ui.screen.profile.ProfileScreen
@@ -38,6 +40,7 @@ import dev.materii.gloom.ui.util.NavigationUtil.navigate
 import dev.materii.gloom.ui.util.annotatingStringResource
 import dev.materii.gloom.ui.widget.markdown.TruncatedMarkdown
 import dev.materii.gloom.util.ifNullOrBlank
+import org.koin.compose.koinInject
 
 @Composable
 @Suppress("UNUSED_PARAMETER")
@@ -85,6 +88,13 @@ fun ReleaseCard(
 ) {
     val repo = release.repository.feedRepository
     val nav = LocalNavigator.currentOrThrow
+    val prefs: PreferenceManager = koinInject()
+    val title = release.name.ifNullOrBlank { release.tagName }
+    val translatedTitle = if (prefs.autoTranslate && prefs.translateReleases) {
+        rememberTranslation(title, enabled = true)
+    } else {
+        null
+    }
 
     ElevatedCard(
         modifier = modifier
@@ -115,11 +125,24 @@ fun ReleaseCard(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.padding(horizontal = 16.dp)
             ) {
-                Text(
-                    text = release.name.ifNullOrBlank { release.tagName },
-                    style = MaterialTheme.typography.titleLarge,
-                    fontWeight = FontWeight.Bold
-                )
+                Column(
+                    verticalArrangement = Arrangement.spacedBy(4.dp),
+                    modifier = Modifier.weight(1f)
+                ) {
+                    Text(
+                        text = title,
+                        style = MaterialTheme.typography.titleLarge,
+                        fontWeight = FontWeight.Bold
+                    )
+
+                    if (translatedTitle != null && translatedTitle != title) {
+                        Text(
+                            text = translatedTitle,
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.onSurface.copy(0.65f)
+                        )
+                    }
+                }
 
                 if (release.isLatest) {
                     Text(

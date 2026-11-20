@@ -21,8 +21,8 @@ kotlin {
             }
 
             implementation(project(":api"))
-            implementation(project(":shared"))
-            implementation(project(":ui"))
+implementation(project(":shared"))
+implementation(project(":ui"))
         }
     }
 }

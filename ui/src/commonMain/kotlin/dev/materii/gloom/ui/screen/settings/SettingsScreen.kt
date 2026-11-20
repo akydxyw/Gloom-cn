@@ -73,6 +73,13 @@ class SettingsScreen: Screen {
                         destination = ::AppearanceSettingsScreen
                     )
 
+                    SettingsCategory(
+                        icon = Icons.Outlined.Translate,
+                        text = stringResource(Res.strings.settings_translation),
+                        subtext = stringResource(Res.strings.settings_translation_description),
+                        destination = ::TranslationSettingsScreen
+                    )
+
                     if (dev.materii.gloom.util.Features.contains(Feature.CHANGE_ICON)) {
                         SettingsCategory(
                             icon = Icons.Outlined.DesignServices,

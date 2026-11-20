@@ -6,6 +6,7 @@ import io.ktor.client.HttpClient
 import io.ktor.client.engine.cio.CIO
 import io.ktor.client.plugins.HttpRequestRetry
 import io.ktor.client.plugins.HttpRequestTimeoutException
+import io.ktor.client.plugins.HttpTimeout
 import io.ktor.client.plugins.UserAgent
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.defaultRequest
@@ -42,6 +43,11 @@ fun httpModule() = module {
                     retry * 1000L
                 }
             }
+            install(HttpTimeout) {
+                connectTimeoutMillis = 4_000
+                socketTimeoutMillis = 15_000
+                requestTimeoutMillis = 25_000
+            }
             install(ContentNegotiation) {
                 json(json)
             }
@@ -70,6 +76,11 @@ fun httpModule() = module {
                 delayMillis { retry ->
                     retry * 1000L
                 }
+            }
+            install(HttpTimeout) {
+                connectTimeoutMillis = 4_000
+                socketTimeoutMillis = 15_000
+                requestTimeoutMillis = 25_000
             }
             install(ContentNegotiation) {
                 json(json)

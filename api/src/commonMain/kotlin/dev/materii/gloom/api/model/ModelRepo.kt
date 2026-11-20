@@ -4,8 +4,10 @@ import dev.materii.gloom.api.dto.repo.Repository
 import dev.materii.gloom.api.dto.user.User
 import dev.materii.gloom.gql.RepoForksQuery
 import dev.materii.gloom.gql.RepoListQuery
+import dev.materii.gloom.gql.StarredListsQuery
 import dev.materii.gloom.gql.StarredReposQuery
 import dev.materii.gloom.gql.fragment.PinnedRepo
+import dev.materii.gloom.gql.fragment.RepoListRepoFragment
 import kotlinx.datetime.LocalDateTime
 
 data class ModelRepo(
@@ -100,7 +102,12 @@ data class ModelRepo(
             )
         }
 
-        fun fromStarredReposQuery(srq: StarredReposQuery.Node) = with(srq.repoListRepoFragment) {
+        fun fromStarredReposQuery(srq: StarredReposQuery.Node) = fromFragment(srq.repoListRepoFragment)
+
+        fun fromStarredListsQuery(node: StarredListsQuery.Node1): ModelRepo? =
+            node.onRepository?.let { fromFragment(it.repoListRepoFragment) }
+
+        private fun fromFragment(frag: RepoListRepoFragment): ModelRepo = with(frag) {
             val lang = languages?.nodes?.firstOrNull()
             val modelLang = if (lang != null)
                 ModelLanguage(lang.language.name, lang.language.color)
@@ -121,6 +128,8 @@ data class ModelRepo(
                 )
             )
         }
+
+        fun fromRepoListFragment(fragment: RepoListRepoFragment): ModelRepo = fromFragment(fragment)
 
         fun fromRepoForksQuery(rfq: RepoForksQuery.Node) = with(rfq.repoListRepoFragment) {
             val lang = languages?.nodes?.firstOrNull()

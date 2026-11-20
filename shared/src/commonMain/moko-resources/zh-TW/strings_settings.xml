@@ -1,85 +1,192 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
-    <string name="action_sign_out">Sign Out</string>
-    <string name="settings_sign_out_header">Sign Out?</string>
-    <string name="settings_sign_out_text">Are you sure you want to sign out? You can always sign back in later.</string>
+    <string name="action_sign_out">登出</string>
+    <string name="settings_sign_out_header">登出？</string>
+    <string name="settings_sign_out_text">確定要登出嗎？之後隨時可以重新登入。</string>
     <!-- Appearance -->
-    <string name="settings_appearance">Appearance</string>
-    <string name="settings_appearance_description">Theme, code style</string>
-    <string name="appearance_theme">Theme</string>
-    <string name="appearance_monet">Dynamic Theme</string>
-    <string name="appearance_monet_description">Available on Android 12+</string>
-    <string name="theme_system">System</string>
-    <string name="theme_light">Light</string>
-    <string name="theme_dark">Dark</string>
-    <string name="appearance_av_shape">Avatar Shape</string>
-    <string name="appearance_av_radius">Radius:</string>
+    <string name="settings_appearance">外觀</string>
+    <string name="settings_appearance_description">主題、程式碼風格</string>
+    <string name="appearance_theme">主題</string>
+    <string name="appearance_monet">動態色彩</string>
+    <string name="appearance_monet_description">Android 12 以上可用</string>
+    <string name="theme_system">跟隨系統</string>
+    <string name="theme_light">淺色</string>
+    <string name="theme_dark">深色</string>
+    <string name="appearance_av_shape">大頭貼形狀</string>
+    <string name="appearance_av_radius">圓角：</string>
     <string name="appearance_av_radius_percent">%1$d%</string>
-    <string name="appearance_av_shape_circle">Circle</string>
-    <string name="appearance_av_shape_roundrect">Rounded square</string>
-    <string name="appearance_av_shape_squircle">Squircle</string>
-    <string name="action_expand_av_shape">View avatar shape options</string>
-    <string name="action_collapse_av_shape">Close avatar shape options</string>
+    <string name="appearance_av_shape_circle">圓形</string>
+    <string name="appearance_av_shape_roundrect">圓角方形</string>
+    <string name="appearance_av_shape_squircle">方圓形</string>
+    <string name="action_expand_av_shape">展開大頭貼形狀選項</string>
+    <string name="action_collapse_av_shape">收合大頭貼形狀選項</string>
     <!--            -->
     <!-- App Icons -->
-    <string name="settings_app_icon">App Icon</string>
-    <string name="settings_app_icon_description">Pick an icon for Gloom</string>
-    <string name="app_icon_collection_classic">Classic</string>
-    <string name="app_icon_main">Default</string>
-    <string name="app_icon_main_description">The default Gloom icon.</string>
-    <string name="app_icon_sky">Sky</string>
-    <string name="app_icon_sky_description">Huh... That\'s an interesting cloud...</string>
-    <string name="app_icon_light">Light</string>
-    <string name="app_icon_light_description">The original, but light.</string>
-    <string name="app_icon_collection_stylized">Stylized</string>
-    <string name="app_icon_blueprint">Blueprint</string>
-    <string name="app_icon_blueprint_description">Building something great!</string>
+    <string name="settings_app_icon">應用程式圖示</string>
+    <string name="settings_app_icon_description">為 Gloom 挑選一個圖示</string>
+    <string name="app_icon_collection_classic">經典</string>
+    <string name="app_icon_main">預設</string>
+    <string name="app_icon_main_description">Gloom 的預設圖示。</string>
+    <string name="app_icon_sky">天空</string>
+    <string name="app_icon_sky_description">嗯……這朵雲有點意思……</string>
+    <string name="app_icon_light">淺色</string>
+    <string name="app_icon_light_description">原版，但更淺。</string>
+    <string name="app_icon_collection_stylized">風格化</string>
+    <string name="app_icon_blueprint">藍圖</string>
+    <string name="app_icon_blueprint_description">正在建造了不起的東西！</string>
     <string name="app_icon_collection_pride">Pride</string>
     <string name="app_icon_pride">LGBT</string>
     <string name="app_icon_pride_description">🏳️‍🌈</string>
-    <string name="app_icon_trans">Trans</string>
+    <string name="app_icon_trans">跨性別</string>
     <string name="app_icon_trans_description">🏳️‍⚧️</string>
-    <string name="app_icon_trans_inverted">Trans Inverted</string>
-    <string name="app_icon_trans_inverted_description">🏳️‍⚧️ but swapped</string>
+    <string name="app_icon_trans_inverted">跨性別（反轉）</string>
+    <string name="app_icon_trans_inverted_description">🏳️‍⚧️ 但顏色互換</string>
     <string name="app_icon_collection_catppuccin">Catppuccin</string>
     <string name="app_icon_mocha">Mocha</string>
-    <string name="app_icon_mocha_description">Something rich to start your day!</string>
+    <string name="app_icon_mocha_description">來點濃郁的，開啟新的一天！</string>
     <string name="app_icon_macchiato">Macchiato</string>
-    <string name="app_icon_macchiato_description">Prefer something a little lighter?</string>
+    <string name="app_icon_macchiato_description">想來點清爽一點的嗎？</string>
     <string name="app_icon_frappe">Frappé</string>
-    <string name="app_icon_frappe_description">Must be hot out, huh?</string>
+    <string name="app_icon_frappe_description">外面一定很熱吧？</string>
     <string name="app_icon_latte">Latte</string>
-    <string name="app_icon_latte_description">Would you prefer almond or soy?</string>
-    <string name="app_icon_collection_holiday25">Holidays 2025</string>
-    <string name="app_icon_valentines25">Valentines</string>
-    <string name="app_icon_valentines25_description">Love is in the air?</string>
+    <string name="app_icon_latte_description">要加杏仁奶還是豆奶？</string>
+    <string name="app_icon_collection_holiday25">2025 假日</string>
+    <string name="app_icon_valentines25">情人節</string>
+    <string name="app_icon_valentines25_description">空氣裡都是戀愛的味道？</string>
     <!--           -->
     <!-- Accounts -->
-    <string name="settings_accounts">Accounts</string>
-    <string name="settings_accounts_description">Add or switch accounts</string>
-    <string name="action_add_account">Add account</string>
-    <string name="action_sign_out_all">Sign out of all accounts</string>
-    <string name="cd_enterprise_domain">Enterprise domain: %1$s</string>
+    <string name="settings_accounts">帳號</string>
+    <string name="settings_accounts_description">新增或切換帳號</string>
+    <string name="action_add_account">新增帳號</string>
+    <string name="action_sign_out_all">登出所有帳號</string>
+    <string name="cd_enterprise_domain">企業版網域：%1$s</string>
     <!--          -->
     <!-- Development -->
-    <string name="settings_development">Development</string>
-    <string name="settings_development_description">Debug and test new features</string>
-    <string name="dev_alert_testing">Alert Testing</string>
-    <string name="dev_alert_testing_description">Create custom alerts to use for testing</string>
-    <string name="dev_alert_title">Title</string>
-    <string name="dev_alert_message">Message</string>
-    <string name="dev_alert_show_icon">Show icon</string>
-    <string name="dev_alert_duration">Duration</string>
-    <string name="dev_alert_action_show_alert">Show alert</string>
-    <string name="dev_alert_action_fill_queue">Fill queue</string>
+    <string name="settings_development">開發</string>
+    <string name="settings_development_description">偵錯和測試新功能</string>
+    <string name="dev_alert_testing">通知測試</string>
+    <string name="dev_alert_testing_description">建立自訂通知用於測試</string>
+    <string name="dev_alert_title">標題</string>
+    <string name="dev_alert_message">內容</string>
+    <string name="dev_alert_show_icon">顯示圖示</string>
+    <string name="dev_alert_duration">時長</string>
+    <string name="dev_alert_action_show_alert">顯示通知</string>
+    <string name="dev_alert_action_fill_queue">填滿佇列</string>
     <!--             -->
     <!-- About -->
-    <string name="settings_about">About</string>
-    <string name="settings_libraries">Libraries</string>
-    <string name="settings_libraries_description">The libraries used to make Gloom</string>
-    <string name="cd_library_author">Author: %1$s</string>
-    <string name="cd_library_license">License: %1$s</string>
-    <string name="label_open_source">Open Source</string>
-    <string name="label_closed_source">Closed Source</string>
+    <string name="settings_about">關於</string>
+    <string name="settings_libraries">開源庫</string>
+    <string name="settings_libraries_description">建構 Gloom 所使用的庫</string>
+    <string name="cd_library_author">作者：%1$s</string>
+    <string name="cd_library_license">授權條款：%1$s</string>
+    <string name="label_open_source">開源</string>
+    <string name="label_closed_source">閉源</string>
     <!--       -->
+    <!-- Translation -->
+    <string name="settings_translation">翻譯</string>
+    <string name="settings_translation_description">翻譯儲存庫、README、Issue 與 PR</string>
+
+    <string name="translation_service">翻譯服務</string>
+    <string name="translation_target_language">目標語言</string>
+
+    <string name="translation_engine_google">Google（免費）</string>
+    <string name="translation_engine_microsoft">微軟（免費）</string>
+    <string name="translation_engine_mymemory">MyMemory（免費）</string>
+    <string name="translation_engine_deeplx">DeepLX</string>
+    <string name="translation_engine_openai">自訂 AI（OpenAI 相容）</string>
+
+    <string name="translation_target_zh_cn">簡體中文</string>
+    <string name="translation_target_zh_tw">繁體中文</string>
+    <string name="translation_target_en">英語</string>
+    <string name="translation_target_ja">日語</string>
+
+    <string name="translation_deeplx_header">DeepLX 設定</string>
+    <string name="translation_deeplx_endpoint">服務位址</string>
+    <string name="translation_deeplx_endpoint_hint">留空使用公共端點</string>
+    <string name="translation_deeplx_token">存取權杖（可選）</string>
+
+    <string name="translation_openai_header">自訂 AI 服務</string>
+    <string name="translation_openai_endpoint">API 位址</string>
+    <string name="translation_openai_endpoint_hint">例如 https://api.openai.com/v1</string>
+    <string name="translation_openai_key">API 金鑰</string>
+    <string name="translation_openai_model">模型名稱</string>
+
+    <string name="translation_mymemory_header">MyMemory 設定</string>
+    <string name="translation_mymemory_email">信箱（可選，可提升配額）</string>
+
+    <string name="translation_scope_header">翻譯範圍</string>
+    <string name="translation_scope_repo_name">儲存庫名稱</string>
+    <string name="translation_scope_repo_description">儲存庫簡介</string>
+    <string name="translation_scope_readme">README</string>
+    <string name="translation_scope_issue_title">Issue 標題</string>
+    <string name="translation_scope_pr_title">Pull Request 標題</string>
+
+    <string name="translation_note">免費服務無需設定金鑰。被翻譯的內容會傳送到所選的翻譯服務。</string>
+
+    <string name="action_translate">翻譯</string>
+    <string name="translation_readme_title">README 譯文</string>
+    <string name="translation_progress">正在翻譯 %1$d/%2$d</string>
+    <string name="translation_truncated">README 過長，僅翻譯前 %1$d 段。</string>
+    <string name="translation_error">翻譯失敗：%1$s</string>
+    <string name="translation_error_not_configured">該服務尚未設定，請先在設定中完成設定。</string>
+    <string name="cd_translate">翻譯</string>
+    <!--          -->
+    <!-- Translation pool & auto translate -->
+    <string name="translation_auto">自動翻譯</string>
+    <string name="translation_auto_description">瀏覽時自動翻譯，無需手動點擊</string>
+
+    <string name="translation_pool">免費翻譯分流池</string>
+    <string name="translation_pool_mode">分流模式</string>
+    <string name="translation_pool_balanced">智慧分流（按權重）</string>
+    <string name="translation_pool_sequential">順序分流（依次切換）</string>
+    <string name="translation_pool_services">參與服務</string>
+
+    <string name="service_microsoft">微軟翻譯</string>
+    <string name="service_google">谷歌翻譯</string>
+    <string name="service_transmart">騰訊互動翻譯</string>
+    <string name="service_volcengine">火山翻譯</string>
+    <string name="service_youdao">有道翻譯</string>
+    <string name="service_iciba">金山詞霸</string>
+    <string name="service_alibaba">阿里翻譯</string>
+    <string name="service_bilibili">B站翻譯</string>
+    <string name="service_modernmt">ModernMT</string>
+    <string name="service_lingvanex">Lingvanex</string>
+    <string name="service_yandex">Yandex 翻譯</string>
+    <string name="service_mymemory">MyMemory</string>
+    <string name="service_reverso">Reverso</string>
+    <string name="service_apertium">Apertium</string>
+
+    <!-- Translation pool & auto translate -->
+    <string name="translation_auto">自動翻譯</string>
+    <string name="translation_auto_description">瀏覽時自動翻譯，無需手動點擊</string>
+
+    <string name="translation_pool">免費翻譯分流池</string>
+    <string name="translation_pool_mode">分流模式</string>
+    <string name="translation_pool_balanced">智慧分流（按權重）</string>
+    <string name="translation_pool_sequential">順序分流（依次切換）</string>
+    <string name="translation_pool_services">參與服務</string>
+
+    <string name="service_microsoft">微軟翻譯</string>
+    <string name="service_google">谷歌翻譯</string>
+    <string name="service_transmart">騰訊互動翻譯</string>
+    <string name="service_volcengine">火山翻譯</string>
+    <string name="service_youdao">有道翻譯</string>
+    <string name="service_iciba">金山詞霸</string>
+    <string name="service_alibaba">阿里翻譯</string>
+    <string name="service_bilibili">B站翻譯</string>
+    <string name="service_modernmt">ModernMT</string>
+    <string name="service_lingvanex">Lingvanex</string>
+    <string name="service_yandex">Yandex 翻譯</string>
+    <string name="service_mymemory">MyMemory</string>
+    <string name="service_reverso">Reverso</string>
+    <string name="service_apertium">Apertium</string>
+
+    <string name="translation_scope_commits">提交訊息</string>
+    <string name="translation_check">檢查連線</string>
+    <string name="translation_checking">檢查中…</string>
+    <string name="translation_check_ok">可用</string>
+    <string name="translation_check_fail">不可用</string>
+    <string name="translation_check_hint">點擊服務（或右側圖示）傳送一條短測試請求，結果僅代表當前時刻的連通性。</string>
+
+        <string name="translation_scope_releases">發行說明</string>
 </resources>

@@ -9,6 +9,7 @@ import androidx.compose.material.icons.filled.Download
 import androidx.compose.material.icons.outlined.Android
 import androidx.compose.material.icons.outlined.Archive
 import androidx.compose.material.icons.outlined.FolderZip
+import androidx.compose.material.icons.outlined.Share
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -31,10 +32,12 @@ import org.koin.compose.koinInject
 fun ReleaseAsset(
     name: String,
     size: Int,
+    shareUrl: String,
     onDownloadClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val dialogManager: DialogManager = koinInject()
+    val shareManager: dev.materii.gloom.domain.manager.ShareManager = koinInject()
     var showConfirmDialog by remember {
         mutableStateOf(false)
     }
@@ -117,18 +120,29 @@ fun ReleaseAsset(
             )
         }
 
-        IconButton(
-            onClick = {
-                if (dialogManager.downloadAsset == DialogState.UNKNOWN)
-                    showConfirmDialog = true
-                else
-                    onDownloadClick()
+        Row {
+            IconButton(
+                onClick = { shareManager.shareText(shareUrl) }
+            ) {
+                Icon(
+                    imageVector = Icons.Outlined.Share,
+                    contentDescription = stringResource(Res.strings.action_share)
+                )
             }
-        ) {
-            Icon(
-                imageVector = Icons.Filled.Download,
-                contentDescription = stringResource(Res.strings.action_download)
-            )
+
+            IconButton(
+                onClick = {
+                    if (dialogManager.downloadAsset == DialogState.UNKNOWN)
+                        showConfirmDialog = true
+                    else
+                        onDownloadClick()
+                }
+            ) {
+                Icon(
+                    imageVector = Icons.Filled.Download,
+                    contentDescription = stringResource(Res.strings.action_download)
+                )
+            }
         }
     }
 }

@@ -13,18 +13,22 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import dev.icerock.moko.resources.compose.stringResource
 import dev.materii.gloom.Res
 import dev.materii.gloom.api.dto.user.User
+import dev.materii.gloom.domain.manager.PreferenceManager
 import dev.materii.gloom.domain.manager.enums.TrendingPeriodPreference
 import dev.materii.gloom.gql.fragment.TrendingRepository
 import dev.materii.gloom.ui.component.Avatar
 import dev.materii.gloom.ui.component.LabeledIcon
+import dev.materii.gloom.ui.component.translation.rememberTranslation
 import dev.materii.gloom.ui.theme.gloomColorScheme
 import dev.materii.gloom.ui.util.parsedColor
 import dev.materii.gloom.util.NumberFormatter
+import org.koin.compose.koinInject
 
 @Composable
 fun TrendingRepoItem(
@@ -37,6 +41,18 @@ fun TrendingRepoItem(
     onUnstarClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val prefs: PreferenceManager = koinInject()
+    val translatedName = if (prefs.autoTranslate && prefs.translateRepoName) {
+        rememberTranslation(trendingRepository.name, enabled = true)
+    } else {
+        null
+    }
+    val translatedDescription = if (prefs.autoTranslate && prefs.translateRepoDescription && !trendingRepository.description.isNullOrBlank()) {
+        rememberTranslation(trendingRepository.description!!, enabled = true)
+    } else {
+        null
+    }
+
     Box(
         modifier = modifier
             .fillMaxWidth()
@@ -87,6 +103,16 @@ fun TrendingRepoItem(
                             text = trendingRepository.name,
                             style = MaterialTheme.typography.titleMedium
                         )
+
+                        if (translatedName != null && translatedName != trendingRepository.name) {
+                            Text(
+                                text = translatedName,
+                                style = MaterialTheme.typography.labelMedium,
+                                color = MaterialTheme.colorScheme.onSurface.copy(0.55f),
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis
+                            )
+                        }
                     }
 
                     FilledTonalIconToggleButton(
@@ -115,6 +141,14 @@ fun TrendingRepoItem(
                         style = MaterialTheme.typography.bodyMedium,
                         color = LocalContentColor.current.copy(alpha = 0.8f)
                     )
+
+                    if (translatedDescription != null && translatedDescription != description) {
+                        Text(
+                            text = translatedDescription,
+                            style = MaterialTheme.typography.bodySmall,
+                            color = LocalContentColor.current.copy(alpha = 0.6f)
+                        )
+                    }
                 }
 
                 LabeledIcon(

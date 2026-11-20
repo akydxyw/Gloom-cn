@@ -6,6 +6,7 @@ import dev.materii.gloom.api.util.transform
 import dev.materii.gloom.gql.type.IssueState
 import dev.materii.gloom.gql.type.PullRequestState
 import dev.materii.gloom.gql.type.ReactionContent
+import dev.materii.gloom.gql.type.SearchType
 import dev.materii.gloom.gql.type.TrendingPeriod
 
 class GraphQLRepository(
@@ -32,6 +33,11 @@ class GraphQLRepository(
         after: String? = null,
         count: Int? = null
     ) = service.getStarredRepositories(username, after, count)
+
+    suspend fun getStarredLists(
+        username: String,
+        after: String? = null
+    ) = service.getStarredLists(username, after)
 
     suspend fun getJoinedOrgs(
         username: String,
@@ -164,5 +170,12 @@ class GraphQLRepository(
     suspend fun react(id: String, reaction: ReactionContent) = service.react(id, reaction)
 
     suspend fun unreact(id: String, reaction: ReactionContent) = service.unreact(id, reaction)
+
+    suspend fun search(
+        query: String,
+        type: SearchType,
+        after: String? = null,
+        count: Int? = null
+    ) = service.search(query, type, after, count)
 
 }

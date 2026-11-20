@@ -1,6 +1,8 @@
 package dev.materii.gloom.ui.screen.repo.tab
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.awaitEachGesture
+import androidx.compose.foundation.gestures.awaitFirstDown
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -14,6 +16,7 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontFamily
@@ -40,10 +43,14 @@ import dev.materii.gloom.ui.screen.repo.RepoScreen
 import dev.materii.gloom.ui.screen.repo.component.ContributorsRow
 import dev.materii.gloom.ui.screen.repo.component.LanguageMakeup
 import dev.materii.gloom.ui.screen.repo.viewmodel.RepoDetailsViewModel
+import dev.materii.gloom.ui.component.translation.TranslatableText
+import dev.materii.gloom.domain.manager.PreferenceManager
 import dev.materii.gloom.ui.util.NavigationUtil.navigate
 import dev.materii.gloom.ui.widget.markdown.Markdown
+import dev.materii.gloom.ui.widget.markdown.WebViewTouchGate
 import dev.materii.gloom.util.NumberFormatter
 import dev.materii.gloom.util.pluralStringResource
+import org.koin.compose.koinInject
 import org.koin.core.parameter.parametersOf
 
 class DetailsTab(
@@ -61,6 +68,7 @@ class DetailsTab(
         val viewModel: RepoDetailsViewModel = koinScreenModel { parametersOf(owner to name) }
         val nav = LocalNavigator.currentOrThrow
         val repoDetails = viewModel.details
+        val prefs: PreferenceManager = koinInject()
 
         PullToRefreshBox(
             isRefreshing = viewModel.detailsLoading,
@@ -69,19 +77,54 @@ class DetailsTab(
                 .fillMaxSize()
                 .clipToBounds()
         ) {
+            val scrollState = rememberScrollState()
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .verticalScroll(rememberScrollState())
+                    // While any part of the README page is touched, the pager's
+                    // user scrolling is disabled (see WebViewTouchGate): wide
+                    // tables scroll horizontally inside the WebView and must not
+                    // be stolen by an accidental page change. Nothing is
+                    // consumed here, so vertical scrolling and pull-to-refresh
+                    // keep working; other pages keep their swipe switching.
+                    .pointerInput(Unit) {
+                        awaitEachGesture {
+                            awaitFirstDown(requireUnconsumed = false)
+                            WebViewTouchGate.set(true)
+                            try {
+                                while (true) {
+                                    val event = awaitPointerEvent()
+                                    val changes = event.changes
+                                    if (changes.isEmpty() || changes.all { !it.pressed }) break
+                                }
+                            } finally {
+                                WebViewTouchGate.set(false)
+                            }
+                        }
+                    }
+                    .verticalScroll(scrollState)
             ) {
                 repoDetails?.let { details ->
+                    if (prefs.translateRepoName) {
+                        TranslatableText(
+                            text = "$owner/$name",
+                            style = MaterialTheme.typography.titleMedium,
+                            modifier = Modifier.padding(
+                                top = 16.dp,
+                                start = 16.dp,
+                                end = 16.dp
+                            )
+                        )
+                    }
+
                     val hasDescription = !details.description.isNullOrBlank()
                     val isFork = details.parent != null
                     if (hasDescription || isFork) {
                         val paddingBetween = if (hasDescription && isFork) 8.dp else 16.dp
                         if (hasDescription) {
-                            Text(
+                            TranslatableText(
                                 text = details.description!!,
+                                enabled = prefs.translateRepoDescription,
                                 style = MaterialTheme.typography.bodyMedium,
                                 modifier = Modifier.padding(
                                     top = 16.dp,
@@ -186,7 +229,8 @@ class DetailsTab(
                         )
                         Markdown(
                             html = details.readme!!.contentHTML.toString(),
-                            Modifier.padding(horizontal = 16.dp)
+                            modifier = Modifier.padding(horizontal = 16.dp),
+                            scrollState = scrollState
                         )
                     }
 

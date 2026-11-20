@@ -8,14 +8,17 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import dev.icerock.moko.resources.compose.stringResource
 import dev.materii.gloom.Res
+import dev.materii.gloom.domain.manager.PreferenceManager
 import dev.materii.gloom.gql.fragment.IssueOverview
 import dev.materii.gloom.gql.type.IssueStateReason
 import dev.materii.gloom.ui.theme.gloomColorScheme
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toImmutableList
+import org.koin.compose.koinInject
 
 @Composable
 fun IssueItem(issue: IssueOverview) {
+    val prefs: PreferenceManager = koinInject()
     val (icon, color, titleCDRes) = when (issue.stateReason) {
         IssueStateReason.COMPLETED -> Triple(
             Icons.Outlined.CheckCircle,
@@ -59,6 +62,7 @@ fun IssueItem(issue: IssueOverview) {
             ?.filterNotNull()
             ?.map { it.login to it.avatarUrl }
             ?.toImmutableList()
-            ?: persistentListOf()
+            ?: persistentListOf(),
+        translateEnabled = prefs.translateIssueTitle
     )
 }

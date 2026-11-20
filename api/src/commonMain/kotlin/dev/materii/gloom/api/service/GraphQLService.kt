@@ -12,6 +12,7 @@ import dev.materii.gloom.gql.*
 import dev.materii.gloom.gql.type.IssueState
 import dev.materii.gloom.gql.type.PullRequestState
 import dev.materii.gloom.gql.type.ReactionContent
+import dev.materii.gloom.gql.type.SearchType
 import dev.materii.gloom.gql.type.TrendingPeriod
 import io.ktor.http.HttpHeaders
 import kotlinx.coroutines.Dispatchers
@@ -70,6 +71,20 @@ class GraphQLService(
                 username = username,
                 cursor = if (after != null) Optional.present(after) else Optional.absent(),
                 total = if (count != null) Optional.present(count) else Optional.absent()
+            )
+        )
+            .addToken()
+            .response()
+    }
+
+    suspend fun getStarredLists(
+        username: String,
+        after: String? = null
+    ) = withContext(Dispatchers.IO) {
+        client.query(
+            StarredListsQuery(
+                login = username,
+                cursor = after.toOptional()
             )
         )
             .addToken()
@@ -322,6 +337,24 @@ class GraphQLService(
 
     suspend fun unreact(id: String, reaction: ReactionContent) = withContext(Dispatchers.IO) {
         client.mutation(UnreactMutation(id, reaction))
+            .addToken()
+            .response()
+    }
+
+    suspend fun search(
+        query: String,
+        type: SearchType,
+        after: String? = null,
+        count: Int? = null
+    ) = withContext(Dispatchers.IO) {
+        client.query(
+            SearchQuery(
+                query = query,
+                type = type,
+                cursor = after.toOptional(),
+                total = count.toOptional()
+            )
+        )
             .addToken()
             .response()
     }

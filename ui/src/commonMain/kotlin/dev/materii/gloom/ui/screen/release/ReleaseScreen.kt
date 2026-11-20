@@ -192,6 +192,8 @@ class ReleaseScreen(
                             ReleaseAsset(
                                 name = asset.name,
                                 size = asset.size,
+                                shareUrl = "https://github.com/${viewModel.owner}/${viewModel.name}" +
+                                    "/releases/download/${viewModel.tag}/${asset.name}",
                                 onDownloadClick = {
                                     alertController.showText(
                                         "Downloading ${asset.name}...",

@@ -17,12 +17,15 @@ import cafe.adriel.voyager.navigator.currentOrThrow
 import dev.icerock.moko.resources.compose.stringResource
 import dev.materii.gloom.Res
 import dev.materii.gloom.api.dto.user.User
+import dev.materii.gloom.domain.manager.PreferenceManager
 import dev.materii.gloom.gql.fragment.ReleaseDetails
 import dev.materii.gloom.ui.component.Avatar
 import dev.materii.gloom.ui.component.Label
+import dev.materii.gloom.ui.component.translation.rememberTranslation
 import dev.materii.gloom.ui.screen.repo.RepoScreen
 import dev.materii.gloom.ui.theme.gloomColorScheme
 import dev.materii.gloom.util.ifNullOrBlank
+import org.koin.compose.koinInject
 
 @Composable
 fun ReleaseHeader(
@@ -30,6 +33,13 @@ fun ReleaseHeader(
     modifier: Modifier = Modifier
 ) {
     val nav = LocalNavigator.currentOrThrow
+    val prefs: PreferenceManager = koinInject()
+    val title = details.name.ifNullOrBlank { details.tagName }
+    val translatedTitle = if (prefs.autoTranslate && prefs.translateReleases) {
+        rememberTranslation(title, enabled = true)
+    } else {
+        null
+    }
 
     Column(
         verticalArrangement = Arrangement.spacedBy(10.dp),
@@ -65,13 +75,25 @@ fun ReleaseHeader(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(10.dp)
         ) {
-            Text(
-                text = details.name.ifNullOrBlank { details.tagName },
-                maxLines = 1,
-                style = MaterialTheme.typography.headlineMedium,
-                overflow = TextOverflow.Ellipsis,
+            Column(
+                verticalArrangement = Arrangement.spacedBy(4.dp),
                 modifier = Modifier.weight(1f, fill = false)
-            )
+            ) {
+                Text(
+                    text = title,
+                    maxLines = 1,
+                    style = MaterialTheme.typography.headlineMedium,
+                    overflow = TextOverflow.Ellipsis
+                )
+
+                if (translatedTitle != null && translatedTitle != title) {
+                    Text(
+                        text = translatedTitle,
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurface.copy(0.65f)
+                    )
+                }
+            }
 
             if (details.isLatest) {
                 Label(

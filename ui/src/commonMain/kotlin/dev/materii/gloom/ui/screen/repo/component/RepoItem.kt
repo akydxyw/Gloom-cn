@@ -25,8 +25,10 @@ import cafe.adriel.voyager.navigator.currentOrThrow
 import dev.icerock.moko.resources.compose.stringResource
 import dev.materii.gloom.Res
 import dev.materii.gloom.api.model.ModelRepo
+import dev.materii.gloom.domain.manager.PreferenceManager
 import dev.materii.gloom.ui.component.Avatar
 import dev.materii.gloom.ui.component.LabeledIcon
+import dev.materii.gloom.ui.component.translation.rememberTranslation
 import dev.materii.gloom.ui.icon.Custom
 import dev.materii.gloom.ui.icon.custom.Fork
 import dev.materii.gloom.ui.screen.repo.RepoScreen
@@ -35,6 +37,7 @@ import dev.materii.gloom.ui.util.NavigationUtil.navigate
 import dev.materii.gloom.ui.util.parsedColor
 import dev.materii.gloom.ui.util.thenIf
 import dev.materii.gloom.util.NumberFormatter
+import org.koin.compose.koinInject
 
 @Composable
 fun RepoItem(
@@ -44,6 +47,12 @@ fun RepoItem(
     card: Boolean = false
 ) {
     val nav = LocalNavigator.currentOrThrow
+    val prefs: PreferenceManager = koinInject()
+    val translateName = prefs.autoTranslate && prefs.translateRepoName && !repo.name.isNullOrBlank()
+    val translatedName = if (translateName) rememberTranslation(repo.name!!, enabled = true) else null
+    val repoDescription = if (repo.description == null && card) "" else repo.description
+    val translateDescription = prefs.autoTranslate && prefs.translateRepoDescription && !repoDescription.isNullOrBlank()
+    val translatedDescription = if (translateDescription) rememberTranslation(repoDescription!!, enabled = true) else null
 
     Column(
         verticalArrangement = Arrangement.spacedBy(5.dp),
@@ -89,7 +98,17 @@ fun RepoItem(
             overflow = TextOverflow.Ellipsis
         )
 
-        val desc = if (repo.description == null && card) "" else repo.description
+        if (translatedName != null && translatedName != repo.name) {
+            Text(
+                text = translatedName,
+                style = MaterialTheme.typography.labelMedium,
+                color = MaterialTheme.colorScheme.onSurface.copy(0.6f),
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
+            )
+        }
+
+        val desc = repoDescription
         desc?.let { description ->
             Text(
                 text = description,
@@ -98,12 +117,23 @@ fun RepoItem(
                 maxLines = if (card) 1 else 5,
                 overflow = TextOverflow.Ellipsis
             )
+
+            if (translatedDescription != null && translatedDescription != description) {
+                Text(
+                    text = translatedDescription,
+                    style = MaterialTheme.typography.labelMedium,
+                    color = MaterialTheme.colorScheme.onSurface.copy(0.55f),
+                    maxLines = if (card) 1 else 3,
+                    overflow = TextOverflow.Ellipsis
+                )
+            }
         }
 
-        if (repo.fork == true && !card) {
+        val forkedFrom = if (repo.fork == true && !card) repo.parent?.fullName else null
+        if (forkedFrom != null) {
             LabeledIcon(
                 icon = Icons.Custom.Fork,
-                label = stringResource(Res.strings.label_forked_from, repo.parent!!.fullName!!),
+                label = stringResource(Res.strings.label_forked_from, forkedFrom),
                 iconTint = LocalContentColor.current.copy(0.6f)
             )
         }

@@ -40,6 +40,7 @@ import dev.materii.gloom.ui.screen.profile.ProfileScreen
 import dev.materii.gloom.ui.screen.repo.viewmodel.RepoViewModel
 import dev.materii.gloom.ui.theme.gloomColorScheme
 import dev.materii.gloom.ui.util.NavigationUtil.navigate
+import dev.materii.gloom.ui.widget.markdown.WebViewTouchGate
 import kotlinx.coroutines.launch
 import org.koin.compose.koinInject
 import org.koin.core.parameter.parametersOf
@@ -162,7 +163,13 @@ class RepoScreen(
                 }
 
                 HorizontalPager(
-                    state = pagerState
+                    state = pagerState,
+                    // Disable pager gestures while a Markdown WebView (or the
+                    // README page) is being touched: wide tables scroll
+                    // horizontally inside the WebView and must never be stolen
+                    // by an accidental page change. Tab clicks and programmatic
+                    // scrolls are unaffected.
+                    userScrollEnabled = !WebViewTouchGate.active
                 ) {
                     val tab = viewModel.tabs[it]
 

@@ -89,7 +89,15 @@ class HomeScreen: Tab {
                 ) {
                     items(
                         count = items.itemCount,
-                        key = items.itemKey(),
+                        // Unique per position: strong fingerprint when the event
+                        // type has one, index+hash otherwise. Guarantees no key
+                        // collisions (which used to render wrong content).
+                        key = { index ->
+                            val node = items.peek(index)
+                            val fingerprint = node?.let { viewModel.itemFingerprint(it) }
+                            if (fingerprint != null) "fp-$fingerprint"
+                            else "idx-$index-${node?.hashCode()}"
+                        },
                         contentType = items.itemContentType()
                     ) { index ->
                         val item = items[index]

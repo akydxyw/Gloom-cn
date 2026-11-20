@@ -1,0 +1,79 @@
+query Search($query: String!, $type: SearchType!, $total: Int = 30, $cursor: String) {
+    search(query: $query, type: $type, first: $total, after: $cursor) {
+        repositoryCount
+        userCount
+        issueCount
+        discussionCount
+        pageInfo {
+            endCursor
+            hasNextPage
+        }
+        nodes {
+            ... on Repository {
+                ...RepoListRepoFragment
+            }
+            ... on User {
+                login
+                displayName: name
+                avatarUrl
+                bio
+                followers {
+                    totalCount
+                }
+            }
+            ... on Organization {
+                login
+                orgName: name
+                avatarUrl
+                description
+            }
+            ... on Issue {
+                number
+                title
+                issueState: state
+                createdAt
+                repository {
+                    nameWithOwner
+                }
+                author {
+                    login
+                    avatarUrl
+                }
+                issueComments: comments {
+                    totalCount
+                }
+            }
+            ... on PullRequest {
+                number
+                title
+                prState: state
+                createdAt
+                repository {
+                    nameWithOwner
+                }
+                author {
+                    login
+                    avatarUrl
+                }
+                prComments: comments {
+                    totalCount
+                }
+            }
+            ... on Discussion {
+                number
+                title
+                createdAt
+                repository {
+                    nameWithOwner
+                }
+                author {
+                    login
+                    avatarUrl
+                }
+                discussionComments: comments {
+                    totalCount
+                }
+            }
+        }
+    }
+}

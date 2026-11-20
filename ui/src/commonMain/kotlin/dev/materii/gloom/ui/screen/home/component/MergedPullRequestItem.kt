@@ -21,10 +21,12 @@ import dev.icerock.moko.resources.compose.pluralStringResource
 import dev.icerock.moko.resources.compose.stringResource
 import dev.materii.gloom.Res
 import dev.materii.gloom.api.dto.user.User
+import dev.materii.gloom.domain.manager.PreferenceManager
 import dev.materii.gloom.gql.fragment.MergedPullRequestFeedItemFragment
 import dev.materii.gloom.gql.type.ReactionContent
 import dev.materii.gloom.ui.component.Label
 import dev.materii.gloom.ui.component.ThinDivider
+import dev.materii.gloom.ui.component.translation.rememberTranslation
 import dev.materii.gloom.ui.icon.Custom
 import dev.materii.gloom.ui.icon.custom.MergedPullRequest
 import dev.materii.gloom.ui.screen.profile.ProfileScreen
@@ -35,6 +37,7 @@ import dev.materii.gloom.ui.widget.markdown.TruncatedMarkdown
 import dev.materii.gloom.ui.widget.reaction.ReactionRow
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toImmutableList
+import org.koin.compose.koinInject
 
 @Composable
 fun MergedPullRequestItem(
@@ -86,6 +89,12 @@ fun PullRequestCard(
     modifier: Modifier = Modifier
 ) {
     val repo = pullRequest.baseRepository!!
+    val prefs: PreferenceManager = koinInject()
+    val translatedTitle = if (prefs.autoTranslate && prefs.translatePrTitle) {
+        rememberTranslation(pullRequest.title, enabled = true)
+    } else {
+        null
+    }
 
     ElevatedCard(
         modifier = modifier.fillMaxWidth()
@@ -116,6 +125,15 @@ fun PullRequestCard(
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding(horizontal = 16.dp)
             )
+
+            if (translatedTitle != null && translatedTitle != pullRequest.title) {
+                Text(
+                    text = translatedTitle,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurface.copy(0.65f),
+                    modifier = Modifier.padding(horizontal = 16.dp)
+                )
+            }
 
             Row(
                 horizontalArrangement = Arrangement.spacedBy(12.dp),

@@ -17,12 +17,15 @@ import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import dev.icerock.moko.resources.compose.stringResource
 import dev.materii.gloom.Res
+import dev.materii.gloom.domain.manager.PreferenceManager
 import dev.materii.gloom.gql.fragment.ReleaseItem
 import dev.materii.gloom.ui.component.Label
+import dev.materii.gloom.ui.component.translation.rememberTranslation
 import dev.materii.gloom.ui.screen.release.ReleaseScreen
 import dev.materii.gloom.ui.theme.DarkGreen
 import dev.materii.gloom.util.TimeUtils.getTimeSince
 import dev.materii.gloom.util.ifNullOrBlank
+import org.koin.compose.koinInject
 
 @Composable
 fun ReleaseItem(
@@ -32,6 +35,13 @@ fun ReleaseItem(
     modifier: Modifier = Modifier
 ) {
     val nav = LocalNavigator.currentOrThrow
+    val prefs: PreferenceManager = koinInject()
+    val title = release.name.ifNullOrBlank { release.tagName }
+    val translatedTitle = if (prefs.autoTranslate && prefs.translateReleases) {
+        rememberTranslation(title, enabled = true)
+    } else {
+        null
+    }
 
     Column(
         verticalArrangement = Arrangement.spacedBy(8.dp),
@@ -41,13 +51,23 @@ fun ReleaseItem(
             .fillMaxWidth()
     ) {
         Text(
-            text = release.name.ifNullOrBlank { release.tagName },
+            text = title,
             style = MaterialTheme.typography.bodyMedium,
             fontSize = 15.sp,
             fontWeight = FontWeight.Bold,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis
         )
+
+        if (translatedTitle != null && translatedTitle != title) {
+            Text(
+                text = translatedTitle,
+                style = MaterialTheme.typography.bodySmall,
+                color = LocalContentColor.current.copy(alpha = 0.65f),
+                maxLines = 2,
+                overflow = TextOverflow.Ellipsis
+            )
+        }
 
         Row(
             verticalAlignment = Alignment.CenterVertically,
